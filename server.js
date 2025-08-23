@@ -198,7 +198,7 @@ app.get('/api/chats/:userId', async (req, res) => {
       $or: [
         { 'members.userId': userId },
         { type: 'public' }, // Show all public chats
-        { type: 'class' } // Show class chats
+        { type: 'class' } // Show class chat
       ]
     }).sort({ lastMessage: -1 });
 
@@ -5345,3 +5345,4 @@ server.listen(PORT, async () => {
   // Initialize default chat rooms
   await initializeDefaultChats();
 });
+
