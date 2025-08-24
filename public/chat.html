@@ -359,11 +359,12 @@
         .messages-container {
             flex: 1 1 auto;
             overflow-y: auto;
-            padding: 10px 8px 6px 8px;
+            padding: 10px 8px 90px 8px; /* bottom padding for input area */
             display: flex;
             flex-direction: column;
             gap: 12px;
             background: #f8f9fa;
+            box-sizing: border-box;
         }
 
         .message {
@@ -747,6 +748,9 @@
 
         /* Mobile responsive */
         @media (max-width: 768px) {
+            .messages-container {
+                padding-bottom: 90px;
+            }
             .message-input-area {
                 padding: 4px 0 6px 0;
             }
@@ -2066,7 +2070,7 @@
                 } catch (e) {}
             };
 
-            // Handle reply preview
+            // Handle reply preview (show what was replied to, even if server omits replyToMessage)
             let replyHtml = '';
             if (message.replyToMessage) {
                 const replyMsg = message.replyToMessage;
@@ -2078,6 +2082,21 @@
                         </div>
                         <div class="reply-content">
                             ${escapeHtml(replyMsg.text ? replyMsg.text.substring(0, 50) + (replyMsg.text.length > 50 ? '...' : '') : 'Media message')}
+                        </div>
+                    </div>
+                `;
+            } else if (message.replyTo) {
+                // Fallback: try to find the replied-to message in DOM (for local echo or if server omits replyToMessage)
+                const repliedEl = document.querySelector(`[data-message-id="${message.replyTo}"] .message-text`);
+                let repliedText = repliedEl ? repliedEl.textContent : 'Message';
+                if (repliedText && repliedText.length > 50) repliedText = repliedText.substring(0, 50) + '...';
+                replyHtml = `
+                    <div class="reply-preview">
+                        <div class="reply-header">
+                            <strong>↳ User</strong>
+                        </div>
+                        <div class="reply-content">
+                            ${escapeHtml(repliedText || 'Media message')}
                         </div>
                     </div>
                 `;
