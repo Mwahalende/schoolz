@@ -6,6 +6,27 @@
     <title>HDT EDUCATION SERVICES - Community Chat</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Sidebar toggle/slide logic */
+        .sidebar-hidden #sidebar {
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+        }
+        #sidebar {
+            transition: transform 0.3s cubic-bezier(.4,2,.6,1);
+        }
+        .sidebar-hidden .chat-area {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+        .chat-area {
+            transition: margin 0.3s, width 0.3s;
+            position: relative;
+            z-index: 0;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -31,7 +52,7 @@
         }
 
         .sidebar-header {
-            padding: 20px;
+            padding: 10px 16px 10px 16px;
             border-bottom: 1px solid #e0e0e0;
             background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
             color: white;
@@ -92,7 +113,7 @@
 
         /* Chat Filters */
         .chat-filters {
-            padding: 15px;
+            padding: 8px 16px 8px 16px;
             border-bottom: 1px solid #e0e0e0;
             background: #f8f9fa;
         }
@@ -458,7 +479,7 @@
 
         /* Input area */
         .message-input-area {
-            padding: 8px 16px 8px 16px;
+            padding: 4px 8px 4px 8px;
             border-top: 1px solid #e0e0e0;
             background: white;
         }
@@ -897,7 +918,10 @@
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
+    <!-- Sidebar Toggle Button (top left, always visible) -->
+    <button id="sidebarToggleBtn" style="position:fixed;top:6px;left:160px;z-index:2002;background:#4CAF50;color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:10px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,0.08);display:flex;align-items:center;gap:8px;">
+        <i class="fas fa-bars"></i> <span id="sidebarToggleText">Hide Sidebar</span>
+    </button>
     <div class="sidebar" id="sidebar">
         <!-- Header -->
         <div class="sidebar-header">
@@ -1152,6 +1176,29 @@
     </div>
 
     <script src="/socket.io/socket.io.js"></script>
+    <script>
+    // Sidebar toggle logic for top-left button (single source of truth)
+    document.addEventListener('DOMContentLoaded', function() {
+        var sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+        var body = document.body;
+        var toggleText = document.getElementById('sidebarToggleText');
+        var sidebarVisible = true;
+        function updateSidebarState() {
+            if (sidebarVisible) {
+                body.classList.remove('sidebar-hidden');
+                toggleText.textContent = 'Hide Sidebar';
+            } else {
+                body.classList.add('sidebar-hidden');
+                toggleText.textContent = 'Show Sidebar';
+            }
+        }
+        sidebarToggleBtn.addEventListener('click', function(e) {
+            sidebarVisible = !sidebarVisible;
+            updateSidebarState();
+        });
+        updateSidebarState();
+    });
+    </script>
     <script>
         let socket;
         let currentRoom = 'general';
