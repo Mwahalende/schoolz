@@ -2512,7 +2512,7 @@ app.put('/api/users/profile', authenticateUser, upload.single('profileImage'), a
   try {
     console.log('Profile update request by', req.user && (req.user.userId || req.user._id));
     console.log('Request body keys:', Object.keys(req.body || {}));
-    if (req.file) console.log('Received file:', req.file.originalname, req.file.mimetype, req.file.size);z
+  if (req.file) console.log('Received file:', req.file.originalname, req.file.mimetype, req.file.size);
     const user = await User.findById(req.user.userId);
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
