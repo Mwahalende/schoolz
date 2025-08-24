@@ -479,9 +479,16 @@
 
         /* Input area */
         .message-input-area {
-            padding: 4px 8px 4px 8px;
-            border-top: 1px solid #e0e0e0;
-            background: white;
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100vw;
+            z-index: 3000;
+            padding: 4px 0 4px 0;
+            border-top: 2px solid #4CAF50;
+            background: #fff;
+            box-shadow: 0 -2px 12px rgba(76,175,80,0.08);
         }
 
         .reply-preview-area {
@@ -741,15 +748,7 @@
         /* Mobile responsive */
         @media (max-width: 768px) {
             .message-input-area {
-                padding: 4px 1vw 6px 1vw;
-                border-top: 2px solid #4CAF50;
-                background: #fff;
-                position: fixed;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 1002;
-                box-shadow: 0 -2px 12px rgba(76,175,80,0.08);
+                padding: 4px 0 6px 0;
             }
             .input-row {
                 gap: 4px;
@@ -1013,7 +1012,7 @@
         </div>
 
         <!-- Message Input -->
-        <div class="message-input-area" id="messageInputArea" style="display: none;">
+    <div class="message-input-area" id="messageInputArea" style="display: none;">
             <!-- Reply Preview -->
             <div class="reply-preview-area" id="replyPreview">
                 <div class="reply-info">
@@ -3124,4 +3123,3 @@
     </a>
 </body>
 </html>
-
