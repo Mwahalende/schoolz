@@ -5345,3 +5345,4 @@ server.listen(PORT, async () => {
   // Initialize default chat rooms
   await initializeDefaultChats();
 });
+
