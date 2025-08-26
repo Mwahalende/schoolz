@@ -1,331 +1,289 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HDT EDUCATION SERVICES - Manage Books</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            background: linear-gradient(120deg, #f8fafc 0%, #e3e9f7 100%);
+            margin: 0;
+            color: #222;
         }
-
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            max-width: 1100px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(60,80,120,0.12);
+            padding: 32px 24px 24px 24px;
         }
-
         .header {
-            background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
-            color: white;
-            padding: 30px;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
+            margin-bottom: 32px;
         }
-
         .header h1 {
-            font-size: 28px;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2a3a6e;
+            margin: 0;
         }
-
         .back-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            transition: all 0.3s ease;
             text-decoration: none;
+            color: #fff;
+            background: #2a3a6e;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: background 0.2s;
         }
-
         .back-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
+            background: #1a2547;
         }
-
         .main-content {
-            padding: 40px;
+            margin-top: 8px;
         }
-
         .action-tabs {
             display: flex;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #f0f0f0;
+            gap: 12px;
+            margin-bottom: 24px;
         }
-
         .tab-button {
-            background: none;
+            background: #e3e9f7;
+            color: #2a3a6e;
             border: none;
-            padding: 15px 30px;
-            font-size: 16px;
+            padding: 10px 28px;
+            border-radius: 6px 6px 0 0;
+            font-size: 1.08rem;
+            font-weight: 500;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
+            transition: background 0.2s, color 0.2s;
         }
-
         .tab-button.active {
-            background: #f8f9fa;
-            border-bottom-color: #2196F3;
-            color: #2196F3;
+            background: #2a3a6e;
+            color: #fff;
         }
-
         .tab-content {
             display: none;
+            background: #f6f8fc;
+            border-radius: 0 0 12px 12px;
+            box-shadow: 0 2px 8px rgba(60,80,120,0.07);
+            padding: 28px 20px;
         }
-
         .tab-content.active {
             display: block;
         }
-
-        .form-section {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 30px;
+        .form-section h2 {
+            color: #2a3a6e;
+            font-size: 1.4rem;
+            margin-bottom: 18px;
         }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
         .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            gap: 24px;
         }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: #333;
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 18px;
+            flex: 1;
         }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s ease;
+        label {
+            font-weight: 500;
+            margin-bottom: 7px;
+            color: #2a3a6e;
         }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            border-color: #2196F3;
+        input[type="text"], select, textarea {
+            padding: 9px 12px;
+            border: 1px solid #cfd8e3;
+            border-radius: 5px;
+            font-size: 1rem;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        input[type="text"]:focus, select:focus, textarea:focus {
+            border-color: #2a3a6e;
             outline: none;
         }
-
-        .file-input-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
+        textarea {
+            resize: vertical;
         }
-
         .file-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px dashed #ddd;
-            border-radius: 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #e3e9f7;
+            border-radius: 5px;
+            padding: 8px 12px;
         }
-
-        .file-input:hover {
-            border-color: #2196F3;
-            background: #f8f9fa;
-        }
-
         .file-input input[type="file"] {
-            position: absolute;
-            opacity: 0;
-            width: 100%;
-            height: 100%;
-            cursor: pointer;
+            display: none;
         }
-
+        .file-input span {
+            color: #2a3a6e;
+            font-size: 0.98rem;
+            cursor: pointer;
+            padding: 6px 12px;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #cfd8e3;
+            transition: background 0.2s;
+        }
+        .file-input span:hover {
+            background: #f0f4fa;
+        }
         .submit-btn {
-            background: linear-gradient(135deg, #2196F3 0%, #21CBF3 100%);
-            color: white;
+            background: linear-gradient(90deg, #2a3a6e 60%, #4e6edb 100%);
+            color: #fff;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 16px;
+            padding: 11px 32px;
+            border-radius: 6px;
+            font-size: 1.08rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(60,80,120,0.07);
+            transition: background 0.2s;
         }
-
         .submit-btn:hover {
-            background: linear-gradient(135deg, #1976D2 0%, #1BA0DB 100%);
-            transform: translateY(-2px);
+            background: linear-gradient(90deg, #1a2547 60%, #2a3a6e 100%);
         }
-
-        .submit-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+        .message {
+            display: none;
+            margin-bottom: 16px;
+            padding: 10px 18px;
+            border-radius: 5px;
+            font-size: 1rem;
         }
-
-        .books-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+        .message.success {
+            background: #e6f7e6;
+            color: #1a7e1a;
+            border: 1px solid #b2e2b2;
         }
-
-        .book-card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            transition: transform 0.3s ease;
+        .message.error {
+            background: #ffeaea;
+            color: #c00;
+            border: 1px solid #f5bcbc;
         }
-
-        .book-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .book-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background: #f0f0f0;
-        }
-
-        .book-info {
-            padding: 20px;
-        }
-
-        .book-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .book-details {
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .book-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .read-btn {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .update-btn {
-            background: #FF9800;
-            color: white;
-        }
-
-        .delete-btn {
-            background: #F44336;
-            color: white;
-        }
-
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
         .filters-section {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+            background: #e3e9f7;
+            border-radius: 8px;
+            padding: 18px 14px;
         }
-
         .loading {
-            text-align: center;
-            padding: 50px;
-            color: #666;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0;
         }
-
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #2196F3;
+            width: 32px;
+            height: 32px;
+            border: 4px solid #e3e9f7;
+            border-top: 4px solid #2a3a6e;
             border-radius: 50%;
-            width: 40px;
-            height: 40px;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin-bottom: 12px;
         }
-
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        .message {
-            padding: 15px;
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 28px;
+        }
+        .book-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(60,80,120,0.09);
+            display: flex;
+            gap: 18px;
+            padding: 18px 16px;
+            align-items: flex-start;
+            transition: box-shadow 0.2s;
+        }
+        .book-card:hover {
+            box-shadow: 0 6px 24px rgba(60,80,120,0.16);
+        }
+        .book-image {
+            width: 110px;
+            height: 150px;
+            object-fit: cover;
             border-radius: 8px;
-            margin-bottom: 20px;
-            display: none;
+            background: #e3e9f7;
+            box-shadow: 0 1px 4px rgba(60,80,120,0.07);
         }
-
-        .success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+        .book-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
-
-        .error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+        .book-title {
+            font-size: 1.18rem;
+            font-weight: 600;
+            color: #2a3a6e;
+            margin-bottom: 4px;
         }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
+        .book-details {
+            font-size: 0.98rem;
+            color: #444;
+            margin-bottom: 8px;
+        }
+        .book-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .action-btn {
+            background: #e3e9f7;
+            color: #2a3a6e;
+            border: none;
+            padding: 7px 18px;
+            border-radius: 5px;
+            font-size: 0.98rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .action-btn.read-btn {
+            background: linear-gradient(90deg, #4e6edb 60%, #2a3a6e 100%);
+            color: #fff;
+        }
+        .action-btn.update-btn {
+            background: #f7e3e3;
+            color: #c00;
+        }
+        .action-btn.delete-btn {
+            background: #ffeaea;
+            color: #c00;
+        }
+        .action-btn:hover {
+            background: #2a3a6e;
+            color: #fff;
+        }
+        @media (max-width: 800px) {
+            .container {
+                padding: 12px 4px;
             }
-
             .header {
                 flex-direction: column;
-                gap: 20px;
+                gap: 12px;
             }
-
-            .action-tabs {
+            .form-row, .filters-section {
                 flex-direction: column;
+                gap: 8px;
             }
-
-            .main-content {
-                padding: 20px;
+            .books-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -524,12 +482,24 @@
             }
         }
 
-        // Handle file input display
-        document.querySelectorAll('.file-input input[type="file"]').forEach(input => {
+        // Handle file input display and clickable span
+        document.querySelectorAll('.file-input').forEach(fileInputDiv => {
+            const input = fileInputDiv.querySelector('input[type="file"]');
+            const span = fileInputDiv.querySelector('span');
+            if (!input || !span) return;
+            // When span is clicked, trigger file input
+            span.addEventListener('click', () => input.click());
+            // When file is selected, update span text
             input.addEventListener('change', function() {
-                const span = this.parentElement.querySelector('span');
                 if (this.files.length > 0) {
                     span.textContent = this.files[0].name;
+                } else {
+                    // Reset to default text
+                    if (input.name === 'bookImage') {
+                        span.textContent = 'Click to select book cover image';
+                    } else {
+                        span.textContent = 'Click to select book file (PDF, DOC, DOCX)';
+                    }
                 }
             });
         });
@@ -784,4 +754,3 @@
 </html>
 
 <!-- reader removed: opens in new tab -->
-
