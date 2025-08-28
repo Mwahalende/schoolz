@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -759,11 +759,13 @@
                         </div>`;
                     questionTitle = questionText.length > 100 ? questionText.substring(0, 100) + '...' : questionText;
                 } else if (question.questionType === 'image') {
-                    const imagePath = question.questionImage ? `/${question.questionImage}` : '';
+                    const imagePath = question.questionImage || question.imageUrl || question.questionImageUrl; // Support multiple possible image URL fields
+                    const isCloudinaryUrl = imagePath && (imagePath.includes('cloudinary.com') || imagePath.startsWith('https://'));
+                    const finalImagePath = isCloudinaryUrl ? imagePath : `/${imagePath}`; // Use full URL for Cloudinary, relative path for local
                     questionDisplay = `
                         <div class="question-text">
                             <strong>❓ Question (Image):</strong><br>
-                            ${imagePath ? `<img src="${imagePath}" alt="Question Image" class="question-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                            ${imagePath ? `<img src="${finalImagePath}" alt="Question Image" class="question-image" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
                             <p style="color: #999; display: none;">Image failed to load</p>` : '<p style="color: #999;">Image not available</p>'}
                         </div>`;
                     questionTitle = 'Image Question';
@@ -1048,7 +1050,7 @@
             <div class="footer-content">
                 <!-- School Information Section -->
                 <div class="footer-section">
-                    <h3 title="home of dynamic technologies"><img src="WhatsApp Image 2025-08-08 at 11.41.10_148b0047.jpg" alt="HDT Education Logo" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db; box-shadow: 0 2px 6px rgba(0,0,0,0.2); vertical-align: middle; margin-right: 10px;"> HDT EDUCATION SERVICES</h3>
+                    <h3 title="home of dynamic technologies"><img src="images/hdt-logo.jpg" alt="HDT Education Logo" style="width: 35px; height: 35px; border-radius: 50%; object-fit: cover; border: 2px solid #3498db; box-shadow: 0 2px 6px rgba(0,0,0,0.2); vertical-align: middle; margin-right: 10px;"> HDT EDUCATION SERVICES</h3>
                     <p class="motto">"Empowering minds, building futures, creating leaders of tomorrow."</p>
                     <p>HDT EDUCATION SERVICES is committed to providing excellence in education through innovative teaching methods, quality learning resources, and comprehensive student development programs.</p>
                     
