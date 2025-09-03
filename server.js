@@ -765,7 +765,7 @@ app.post('/api/admin/register', async (req, res) => {
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Admin Registration Confirmation</title>
+            <title>Admin Registrations Confirmation</title>
             <style>
                 * { margin: 0; padding: 0; box-sizing: border-box; }
                 body { 
@@ -5345,4 +5345,5 @@ server.listen(PORT, async () => {
   // Initialize default chat rooms
   await initializeDefaultChats();
 });
+
 
